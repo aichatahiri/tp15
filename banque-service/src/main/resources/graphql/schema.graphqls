@@ -1,0 +1,42 @@
+type Query {
+    compteTransactions(id: ID!): [Transaction!]!
+    allTransactions: [Transaction!]!
+    transactionStats: TransactionStats!
+}
+
+type Mutation {
+    addTransaction(transaction: TransactionRequest!): Transaction!
+}
+
+type Transaction {
+    id: ID!
+    montant: Float!
+    date: String!
+    type: TypeTransaction!
+    compte: Compte!
+}
+
+type Compte {
+    id: ID!
+    numero: String!
+    titulaire: String!
+    solde: Float!
+}
+
+type TransactionStats {
+    count: Int!
+    sumDepots: Float!
+    sumRetraits: Float!
+}
+
+input TransactionRequest {
+    compteId: ID!
+    montant: Float!
+    date: String!
+    type: TypeTransaction!
+}
+
+enum TypeTransaction {
+    DEPOT
+    RETRAIT
+}
